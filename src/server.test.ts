@@ -4,13 +4,13 @@ import { expect } from 'chai';
 
 const request = supertest(createApp().listen());
 
-// describe('Server', () => {
-//   it('should respond for health check', async () => {
-//     await request.get('/healthz')
-//       .expect('Content-Type', /json/)
-//       .expect(200);
-//   });
-// });
+describe('Server', () => {
+  it('should respond for health check', async () => {
+    await request.get('/healthz')
+      // .expect('Content-Type', /json/)
+      .expect(200);
+  });
+});
 
 describe("GraphQL Server", () => {
   it("should query hello", async () => {
