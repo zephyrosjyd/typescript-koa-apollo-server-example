@@ -1,0 +1,8 @@
+{
+  "workbench.colorCustomizations": {
+    "minimap.background": "#00000055",
+    "activityBar.background": "#5D0E0B",
+    "titleBar.activeBackground": "#821410",
+    "titleBar.activeForeground": "#FFFCFB"
+  }
+}
