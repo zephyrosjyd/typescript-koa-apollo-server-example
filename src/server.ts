@@ -7,20 +7,26 @@ export function createApp(): Koa {
   const router = new KoaRouter();
   const server = new ApolloServer({
     typeDefs: gql(`
-      type RootQuery
-      
-      type RootMutation
-      
       schema {
-        query: RootQuery
-        mutation: RootMutation
+        query: Query
+      }
+
+      type Query {
+        hello(name: String): String
       }
     `),
     context: ({ ctx }) => ctx,
     formatError: errorHandler,
     resolvers: {
-      RootQuery: {},
-      RootMutation: {},
+      Query: {
+        hello: function hello(
+          root: {},
+          args: { name: string },
+          context: {}
+        ): String {
+          return `Hello ${args.name}`;
+        }
+      },
     }
   });
 
