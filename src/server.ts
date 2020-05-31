@@ -33,7 +33,7 @@ export function createApp(): Koa {
       schema {
         query: Query
       }
-      
+
       ${schema}
     `),
     resolvers: {
@@ -43,7 +43,9 @@ export function createApp(): Koa {
     context: ({ ctx }) => ctx
   });
 
-  router.get('/healthz', ctx => { ctx.body = 'ok' });
+  router.get('/healthz', ctx => {
+    ctx.body = { success: true };
+  });
   router.post('/graphql', server.getMiddleware());
   router.get('/graphql', server.getMiddleware());
 
