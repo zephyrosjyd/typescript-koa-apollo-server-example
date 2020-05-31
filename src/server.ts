@@ -27,7 +27,15 @@ export function createApp(): Koa {
     }), {});
 
   const server = new ApolloServer({
-    typeDefs: gql`${schema}`,
+    typeDefs: gql(`
+      type Query
+
+      schema {
+        query: Query
+      }
+      
+      ${schema}
+    `),
     resolvers: {
       Query: queryResolvers,
     },
