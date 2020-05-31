@@ -2,31 +2,22 @@ import Koa from 'koa';
 import KoaRouter from 'koa-router';
 import { ApolloServer, gql } from 'apollo-server-koa';
 
+import { readFileSync } from 'fs';
+import { join as pathJoin } from 'path';
+
+import helloQuery from './queries/hello';
+
 export function createApp(): Koa {
   const app = new Koa();
   const router = new KoaRouter();
   const server = new ApolloServer({
-    typeDefs: gql(`
-      schema {
-        query: Query
-      }
-
-      type Query {
-        hello(name: String): String
-      }
-    `),
+    typeDefs: gql(
+      readFileSync(pathJoin(__dirname, 'schema/hello.graphql')).toString()
+    ),
     context: ({ ctx }) => ctx,
     formatError: errorHandler,
     resolvers: {
-      Query: {
-        hello: function hello(
-          root: {},
-          args: { name: string },
-          context: {}
-        ): String {
-          return `Hello ${args.name}`;
-        }
-      },
+      Query: helloQuery.Query,
     }
   });
 
